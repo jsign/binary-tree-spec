@@ -28,6 +28,8 @@ class BinaryTree:
         self.root = self._insert_recursive(self.root, key_bits, key, value, 0)
 
     def _insert_recursive(self, node, key_bits, key, value, depth):
+        if node is None:
+            return LeafNode(key, value)
         if isinstance(node, LeafNode):
             if node.key == key:
                 node.value = value
