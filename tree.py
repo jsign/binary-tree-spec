@@ -15,10 +15,8 @@ class BinaryTree:
         self.root = None
 
     def insert(self, key: bytes, value: bytes):
-        if len(key) != 32:
-            raise ValueError("key must be 32 bytes")
-        if len(value) != 32:
-            raise ValueError("value must be 32 bytes")
+        assert len(key) == 32, "key must be 32 bytes"
+        assert len(value) == 32, "value must be 32 bytes"
 
         key_bits = self._bytes_to_bits(key)
         if self.root is None:
@@ -51,8 +49,7 @@ class BinaryTree:
         return node
 
     def _split_leaf(self, leaf, key_bits, existing_key_bits, key, value, depth):
-        if depth >= len(key_bits):
-            raise Exception("depth is bigger than key length")
+        assert depth < len(key_bits), "depth must be less than key length"
 
         if key_bits[depth] == existing_key_bits[depth]:
             new_internal = InternalNode()
