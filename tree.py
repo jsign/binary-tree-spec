@@ -1,3 +1,6 @@
+from blake3 import blake3
+
+
 class StemNode:
     def __init__(self, stem: bytes):
         assert len(stem) == 31, "stem must be 31 bytes"
@@ -98,3 +101,25 @@ class BinaryTree:
                 byte |= bits[i + j] << (7 - j)
             byte_data.append(byte)
         return bytes(byte_data)
+
+    def _hash(self, data):
+        return blake3(data).digest()
+
+    def merkleize(self):
+        def _merkleize(node):
+            if node is None:
+                return b"\x00" * 32
+            if isinstance(node, InternalNode):
+                left_hash = _merkleize(node.left)
+                right_hash = _merkleize(node.right)
+                return self._hash(left_hash + right_hash)
+
+            level = node.values.copy()
+            while len(level) > 1:
+                new_level = []
+                for i in range(0, len(level), 2):
+                    new_level.append(self._hash(level[i] + level[i + 1]))
+                level = new_level
+            return self._hash(node.stem + level[0])
+
+        return _merkleize(self.root)
