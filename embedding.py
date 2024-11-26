@@ -1,5 +1,5 @@
 from typing import Sequence
-import blake3
+from blake3 import blake3
 
 from eth_types import Address, Address32, bytes32
 
@@ -16,7 +16,7 @@ def old_style_address_to_address32(address: Address) -> Address32:
 
 
 def tree_hash(inp: bytes) -> bytes32:
-    return bytes32(blake3.blake3(inp).digest())
+    return bytes32(blake3(inp).digest())
 
 
 def get_tree_key(address: Address32, tree_index: int, sub_index: int):
