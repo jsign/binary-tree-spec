@@ -34,6 +34,14 @@ def get_tree_key_for_code_hash(address: Address32):
     return get_tree_key(address, 0, CODE_HASH_LEAF_KEY)
 
 
+def get_tree_key_for_storage_slot(address: Address32, storage_key: int):
+    if storage_key < (CODE_OFFSET - HEADER_STORAGE_OFFSET):
+        pos = HEADER_STORAGE_OFFSET + storage_key
+    else:
+        pos = MAIN_STORAGE_OFFSET + storage_key
+    return get_tree_key(address, pos // STEM_NODE_WIDTH, pos % STEM_NODE_WIDTH)
+
+
 def get_tree_key_for_code_chunk(address: Address32, chunk_id: int):
     return get_tree_key(
         address,
