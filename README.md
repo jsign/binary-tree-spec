@@ -1,11 +1,11 @@
 # binary-tree-spec
 
-This repository contains a minimal Python implementation for EIP-XXXX. A draft is beign reviewed which can be found [here](https://hackmd.io/@jsign/binary-tree-draft-eip).
+This repository contains a minimal Python implementation for EIP-XXXX. A draft is being reviewed which can be found [here](https://hackmd.io/@jsign/binary-tree-draft-eip).
 
 ## Project Structure
 
 - `tree.py`: Contains the implementation of the `BinaryTree` class.
-- `test_tree.py`: Contains unit tests.
+- `embedding.py`: Contains the implementation accounts encoding into the tree.
 
 ## Running Tests
 
