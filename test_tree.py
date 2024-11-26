@@ -1,11 +1,11 @@
 import unittest
-from tree import BinaryTree, LeafNode
+from tree import BinaryTree, StemNode
 
 
 def get_height(node):
     if node is None:
         return 0
-    if isinstance(node, LeafNode):
+    if isinstance(node, StemNode):
         return 1
     return 1 + max(get_height(node.left), get_height(node.right))
 

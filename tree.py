@@ -1,4 +1,4 @@
-class LeafNode:
+class StemNode:
     def __init__(self, stem: bytes):
         assert len(stem) == 31, "stem must be 31 bytes"
         self.stem = stem
@@ -25,7 +25,7 @@ class BinaryTree:
         subindex = key[31]
 
         if self.root is None:
-            self.root = LeafNode(stem)
+            self.root = StemNode(stem)
             self.root.set_value(subindex, value)
             return
 
@@ -35,12 +35,12 @@ class BinaryTree:
         assert depth < 248, "depth must be less than 248"
 
         if node is None:
-            node = LeafNode(stem)
+            node = StemNode(stem)
             node.set_value(subindex, value)
             return node
 
         stem_bits = self._bytes_to_bits(stem)
-        if isinstance(node, LeafNode):
+        if isinstance(node, StemNode):
             if node.stem == stem:
                 node.set_value(subindex, value)
                 return node
@@ -74,11 +74,11 @@ class BinaryTree:
             bit = stem_bits[depth]
             stem = self._bits_to_bytes(stem_bits)
             if bit == 0:
-                new_internal.left = LeafNode(stem)
+                new_internal.left = StemNode(stem)
                 new_internal.left.set_value(subindex, value)
                 new_internal.right = leaf
             else:
-                new_internal.right = LeafNode(stem)
+                new_internal.right = StemNode(stem)
                 new_internal.right.set_value(subindex, value)
                 new_internal.left = leaf
             return new_internal
