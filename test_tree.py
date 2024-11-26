@@ -64,6 +64,20 @@ class TestBinaryTree(unittest.TestCase):
             tree.insert(key, b"\xFF" * 32)
         self.assertEqual(get_height(tree.root), 1 + 8)
 
+    def test_merkleize_multiple_entries(self):
+        tree = BinaryTree()
+        keys = [
+            b"\x00" * 32,
+            b"\x80" + b"\x00" * 31,
+            b"\x01" + b"\x00" * 31,
+            b"\x81" + b"\x00" * 31,
+        ]
+        for i, key in enumerate(keys, start=1):
+            tree.insert(key, i.to_bytes(32, byteorder="little"))
+        got = tree.merkleize()
+        expected = "e27e0e85876a24c51d16cf81d7e4d7e9d7aebe538eeaaef48e1bf3a843ea398d"
+        self.assertEqual(bytes.hex(got), expected)
+
 
 if __name__ == "__main__":
     unittest.main()
