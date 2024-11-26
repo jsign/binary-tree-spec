@@ -16,7 +16,6 @@ class TestEmbedding(unittest.TestCase):
         result = get_tree_key_for_basic_data(self.address)
         self.assertEqual(len(result), 32)
         self.assertEqual(result[-1], BASIC_DATA_LEAF_KEY)
-        print(result)
 
     def test_get_tree_key_for_code_hash(self):
         result = get_tree_key_for_code_hash(self.address)
