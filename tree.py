@@ -105,13 +105,13 @@ class BinaryTree:
     def _hash(self, data):
         return blake3(data).digest()
 
-    def merkleize(self):
-        def _merkleize(node):
+    def merkelize(self):
+        def _merkelize(node):
             if node is None:
                 return b"\x00" * 32
             if isinstance(node, InternalNode):
-                left_hash = _merkleize(node.left)
-                right_hash = _merkleize(node.right)
+                left_hash = _merkelize(node.left)
+                right_hash = _merkelize(node.right)
                 return self._hash(left_hash + right_hash)
 
             level = node.values.copy()
@@ -122,4 +122,4 @@ class BinaryTree:
                 level = new_level
             return self._hash(node.stem + level[0])
 
-        return _merkleize(self.root)
+        return _merkelize(self.root)
