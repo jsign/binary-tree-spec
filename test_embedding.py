@@ -3,7 +3,6 @@ from eth_types import Address32
 from embedding import (
     BASIC_DATA_LEAF_KEY,
     CODE_HASH_LEAF_KEY,
-    CODE_OFFSET,
     HEADER_STORAGE_OFFSET,
     get_tree_key_for_basic_data,
     get_tree_key_for_code_hash,

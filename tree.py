@@ -1,3 +1,4 @@
+from typing import Optional
 from blake3 import blake3
 
 
@@ -5,7 +6,7 @@ class StemNode:
     def __init__(self, stem: bytes):
         assert len(stem) == 31, "stem must be 31 bytes"
         self.stem = stem
-        self.values = [b"\x00" * 32] * 256
+        self.values: list[Optional[bytes]] = [None] * 256
 
     def set_value(self, index: int, value: bytes):
         self.values[index] = value
@@ -103,6 +104,8 @@ class BinaryTree:
         return bytes(byte_data)
 
     def _hash(self, data):
+        if data in (None, b"\x00" * 64):
+            return b"\x00" * 32
         return blake3(data).digest()
 
     def merkelize(self):
@@ -114,7 +117,7 @@ class BinaryTree:
                 right_hash = _merkelize(node.right)
                 return self._hash(left_hash + right_hash)
 
-            level = node.values.copy()
+            level = [self._hash(x) for x in node.values]
             while len(level) > 1:
                 new_level = []
                 for i in range(0, len(level), 2):
