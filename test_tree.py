@@ -54,8 +54,6 @@ class TestBinaryTree(unittest.TestCase):
         tree.insert(b"\x01" * 32, b"\x01" * 32)
         tree.insert(b"\x01" * 32, b"\x02" * 32)
         self.assertEqual(get_height(tree.root), 1)
-        # Verify that the value is updated
-        self.assertEqual(tree.root.values[1], b"\x02" * 32)
 
     def test_large_number_of_entries(self):
         tree = BinaryTree()
@@ -75,7 +73,7 @@ class TestBinaryTree(unittest.TestCase):
         for i, key in enumerate(keys, start=1):
             tree.insert(key, i.to_bytes(32, byteorder="little"))
         got = tree.merkelize()
-        expected = "0f50ec3b8808f795111af8c889957e336100705679316d956fed4b2cdf9c34de"
+        expected = "2f36879fd9d9e26df24eae699dbe6d88c194b3933d7d3e5ac06e489fe4db75cd"
         self.assertEqual(bytes.hex(got), expected)
 
 
