@@ -7,7 +7,7 @@ BASIC_DATA_LEAF_KEY = 0
 CODE_HASH_LEAF_KEY = 1
 HEADER_STORAGE_OFFSET = 64
 CODE_OFFSET = 128
-STEM_NODE_WIDTH = 256
+STEM_SUBTREE_WIDTH = 256
 MAIN_STORAGE_OFFSET = 256
 
 
@@ -39,14 +39,14 @@ def get_tree_key_for_storage_slot(address: Address32, storage_key: int):
         pos = HEADER_STORAGE_OFFSET + storage_key
     else:
         pos = MAIN_STORAGE_OFFSET + storage_key
-    return get_tree_key(address, pos // STEM_NODE_WIDTH, pos % STEM_NODE_WIDTH)
+    return get_tree_key(address, pos // STEM_SUBTREE_WIDTH, pos % STEM_SUBTREE_WIDTH)
 
 
 def get_tree_key_for_code_chunk(address: Address32, chunk_id: int):
     return get_tree_key(
         address,
-        (CODE_OFFSET + chunk_id) // STEM_NODE_WIDTH,
-        (CODE_OFFSET + chunk_id) % STEM_NODE_WIDTH,
+        (CODE_OFFSET + chunk_id) // STEM_SUBTREE_WIDTH,
+        (CODE_OFFSET + chunk_id) % STEM_SUBTREE_WIDTH,
     )
 
 
