@@ -106,6 +106,8 @@ class BinaryTree:
     def _hash(self, data):
         if data in (None, b"\x00" * 64):
             return b"\x00" * 32
+
+        assert len(data) == 64 or len(data) == 32, "data must be 32 or 64 bytes"
         return blake3(data).digest()
 
     def merkelize(self):
@@ -123,6 +125,7 @@ class BinaryTree:
                 for i in range(0, len(level), 2):
                     new_level.append(self._hash(level[i] + level[i + 1]))
                 level = new_level
-            return self._hash(node.stem + level[0])
+
+            return self._hash(node.stem + b"\0" + level[0])
 
         return _merkelize(self.root)

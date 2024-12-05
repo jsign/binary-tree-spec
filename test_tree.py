@@ -75,7 +75,7 @@ class TestBinaryTree(unittest.TestCase):
         for i, key in enumerate(keys, start=1):
             tree.insert(key, i.to_bytes(32, byteorder="little"))
         got = tree.merkelize()
-        expected = "0f50ec3b8808f795111af8c889957e336100705679316d956fed4b2cdf9c34de"
+        expected = "e93c209026b8b00d76062638102ece415028bd104e1d892d5399375a323f2218"
         self.assertEqual(bytes.hex(got), expected)
 
 
