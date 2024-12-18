@@ -15,12 +15,20 @@ class TestBinaryTree(unittest.TestCase):
         tree = BinaryTree()
         tree.insert(b"\x00" * 32, b"\x01" * 32)
         self.assertEqual(get_height(tree.root), 1)
+        self.assertEqual(
+            tree.merkelize().hex(),
+            "694545468677064fd833cddc8455762fe6b21c6cabe2fc172529e0f573181cd5",
+        )
 
     def test_two_entries_diff_first_bit(self):
         tree = BinaryTree()
         tree.insert(b"\x00" * 32, b"\x01" * 32)
         tree.insert(b"\x80" + b"\x00" * 31, b"\x02" * 32)
         self.assertEqual(get_height(tree.root), 2)
+        self.assertEqual(
+            tree.merkelize().hex(),
+            "85fc622076752a6fcda2c886c18058d639066a83473d9684704b5a29455ed2ed",
+        )
 
     def test_one_stem_colocated_values(self):
         tree = BinaryTree()
