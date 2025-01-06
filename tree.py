@@ -45,6 +45,7 @@ class BinaryTree:
 
         stem_bits = self._bytes_to_bits(stem)
         if isinstance(node, StemNode):
+            # If the stem already exists, update the value.
             if node.stem == stem:
                 node.set_value(subindex, value)
                 return node
@@ -53,6 +54,7 @@ class BinaryTree:
                 node, stem_bits, existing_stem_bits, subindex, value, depth
             )
 
+        # We're in an internal node, go left or right based on the bit.
         bit = stem_bits[depth]
         if bit == 0:
             node.left = self._insert(node.left, stem, subindex, value, depth + 1)
@@ -61,6 +63,8 @@ class BinaryTree:
         return node
 
     def _split_leaf(self, leaf, stem_bits, existing_stem_bits, subindex, value, depth):
+        # If the stem bits are the same up to this depth, we need to create another
+        # internal node and recurse.
         if stem_bits[depth] == existing_stem_bits[depth]:
             new_internal = InternalNode()
             bit = stem_bits[depth]
