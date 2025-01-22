@@ -1,6 +1,6 @@
 # binary-tree-spec
 
-This repository contains a minimal Python implementation for EIP-XXXX. A draft is being reviewed which can be found [here](https://hackmd.io/@jsign/binary-tree-draft-eip).
+This repository contains a minimal Python implementation for [EIP-7864](https://github.com/ethereum/EIPs/pull/9257) ([discussion thread](https://ethereum-magicians.org/t/eip-7864-ethereum-state-using-a-unified-binary-tree/22611)).
 
 ## Project Structure
 
